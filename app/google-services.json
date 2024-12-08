@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "555824818812",
+    "project_id": "turismo-sostenible-eventos",
+    "storage_bucket": "turismo-sostenible-eventos.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555824818812:android:1f9a73a660225f74eb37f9",
+        "android_client_info": {
+          "package_name": "com.example.jaime_aplicacion_turismo_sostenible"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHOJiukI2pngwbvx-YWJkQI1uxV0q3_Dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

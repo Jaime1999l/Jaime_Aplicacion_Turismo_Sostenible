@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Jaime_Aplicacion_Turismo_Sostenible</string>
+    <string name="drawer_open">Abrir Menú</string>
+    <string name="drawer_close">Cerrar Menú</string>
+    <string-array name="roles">
+        <item>Usuario</item>
+    </string-array>
 </resources>
