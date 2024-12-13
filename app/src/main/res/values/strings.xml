@@ -5,4 +5,12 @@
     <string-array name="roles">
         <item>Usuario</item>
     </string-array>
+
+    <string-array name="location_types">
+        <item>Todos</item>
+        <item>Parque</item>
+        <item>Centro de Salud</item>
+        <item>Policía</item>
+        <item>Reciclaje</item>
+    </string-array>
 </resources>

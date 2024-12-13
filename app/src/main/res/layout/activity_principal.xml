@@ -72,7 +72,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_icon"
+                    android:src="@drawable/ic_icon_map"
                     android:contentDescription="Visualizar Mapa"
                     app:tint="@color/purple_700" />
 

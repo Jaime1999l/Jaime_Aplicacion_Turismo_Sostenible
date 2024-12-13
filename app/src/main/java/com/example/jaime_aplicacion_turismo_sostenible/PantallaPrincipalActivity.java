@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.jaime_aplicacion_turismo_sostenible.model.Usuario;
 import com.example.jaime_aplicacion_turismo_sostenible.repos.firebase.FirebaseHandler;
 import com.example.jaime_aplicacion_turismo_sostenible.ui.activity.LoginActivity;
+import com.example.jaime_aplicacion_turismo_sostenible.ui.activity.MapaActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -63,7 +64,7 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
                 Usuario usuario = task.getResult().toObject(Usuario.class);
 
                 navigationView.findViewById(R.id.nav_map).setOnClickListener(v -> {
-                    startActivity(new Intent(this, Activity.class));
+                    startActivity(new Intent(this, MapaActivity.class));
                     drawerLayout.closeDrawer(GravityCompat.START);
                 });
             } else {

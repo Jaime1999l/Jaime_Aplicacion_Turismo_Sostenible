@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activity.MapaActivity">
+
+    <!-- Layout contenedor superior con Spinner y SearchBar -->
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- Spinner para filtrar -->
+        <Spinner
+            android:id="@+id/spinner_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical" />
+
+        <!-- AutoCompleteTextView para el buscador -->
+        <AutoCompleteTextView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Buscar ubicación..."
+            android:inputType="text"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <!-- Fragmento del mapa -->
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_layout" />
+</RelativeLayout>

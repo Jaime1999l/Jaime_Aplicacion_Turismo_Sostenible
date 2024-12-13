@@ -18,6 +18,7 @@
         <!--    Actividades declaradas    -->
         <activity android:name=".PantallaPrincipalActivity" android:exported="false" tools:ignore="Instantiatable"/>
         <activity android:name=".ui.activity.RegisterActivity" android:exported="false" tools:ignore="Instantiatable"/>
+        <activity android:name=".ui.activity.MapaActivity" android:exported="false" tools:ignore="Instantiatable"/>
         <!--    Pantalla principal    -->
         <activity android:name=".ui.activity.LoginActivity" android:exported="true" tools:ignore="Instantiatable">
             <intent-filter>
