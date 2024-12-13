@@ -1,7 +1,9 @@
 package com.example.jaime_aplicacion_turismo_sostenible.ui.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +19,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.jaime_aplicacion_turismo_sostenible.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -44,10 +48,14 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
     private AutoCompleteTextView searchBar;
     private Spinner spinnerFilter;
 
+    private FusedLocationProviderClient fusedLocationProviderClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_fragment);
@@ -69,9 +77,29 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
+        moveToUserLocation();
 
         // Cargar ubicaciones de la API
         loadMarkersFromOverpass();
+
+        // Agregar clic en marcadores para mostrar información adicional
+        mMap.setOnMarkerClickListener(marker -> {
+            Toast.makeText(MapaActivity.this, "Información: " + marker.getSnippet(), Toast.LENGTH_LONG).show();
+            return false;
+        });
+    }
+
+    @SuppressLint("MissingPermission")
+    private void moveToUserLocation() {
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, location -> {
+            if (location != null) {
+                LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15));
+                Toast.makeText(this, "Ubicación encontrada", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No se pudo obtener la ubicación actual", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initializeUI() {
@@ -147,8 +175,13 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
                 double lon = Double.parseDouble(element.get("lon").toString());
 
                 String tipo = "Ubicación";
+                String descripcion = "Sin descripción";
+
                 if (element.containsKey("tags")) {
                     Map<String, String> tags = (Map<String, String>) element.get("tags");
+                    if (tags.containsKey("name")) {
+                        descripcion = tags.get("name");
+                    }
                     if (tags.containsKey("leisure") && tags.get("leisure").equals("park")) {
                         tipo = "Parque";
                     } else if (tags.containsKey("amenity")) {
@@ -167,7 +200,7 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
 
-                allLocations.add(new MarkerData(tipo, new LatLng(lat, lon)));
+                allLocations.add(new MarkerData(tipo, descripcion, new LatLng(lat, lon)));
             }
         }
     }
@@ -176,7 +209,10 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.clear();
         for (MarkerData data : allLocations) {
             if (type.equals("Todos") || data.type.equals(type)) {
-                mMap.addMarker(new MarkerOptions().position(data.position).title(data.type));
+                mMap.addMarker(new MarkerOptions()
+                        .position(data.position)
+                        .title(data.type)
+                        .snippet(data.description));
             }
         }
     }
@@ -184,8 +220,11 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
     private void filterMarkersBySearch(String query) {
         mMap.clear();
         for (MarkerData data : allLocations) {
-            if (data.type.toLowerCase().contains(query)) {
-                mMap.addMarker(new MarkerOptions().position(data.position).title(data.type));
+            if (data.description.toLowerCase().contains(query)) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(data.position)
+                        .title(data.type)
+                        .snippet(data.description));
             }
         }
     }
@@ -208,10 +247,12 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
 
     static class MarkerData {
         String type;
+        String description;
         LatLng position;
 
-        MarkerData(String type, LatLng position) {
+        MarkerData(String type, String description, LatLng position) {
             this.type = type;
+            this.description = description;
             this.position = position;
         }
     }
