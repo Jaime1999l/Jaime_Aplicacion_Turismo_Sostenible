@@ -1,12 +1,14 @@
 Jaime López Díaz
 
+https://github.com/Jaime1999l/Jaime_Aplicacion_Turismo_Sostenible.git
+
 # Aplicación de Turismo Sostenible
 
 Esta aplicación de Turismo permite a los usuarios visualizar en un mapa diferentes tipos de ubicaciones como **parques**, **centros de salud**, **policía** y **puntos de reciclaje**. La app también incluye funcionalidades avanzadas como **filtrado** y **búsqueda**, además de centrar el mapa en la posición actual del usuario al iniciar.
 
 ---
 
-## 🚀 **Características Principales**
+## **Características Principales**
 
 1. **Visualización de Ubicaciones en el Mapa:**
    - Utiliza la API de **Overpass** para obtener ubicaciones en tiempo real.
@@ -36,7 +38,7 @@ Esta aplicación de Turismo permite a los usuarios visualizar en un mapa diferen
 
 ---
 
-## 🛠️ **Detalles Técnicos del MapaActivity**
+## **Detalles Técnicos del MapaActivity**
 
 ### **Tecnologías Usadas:**
 - **Google Maps API** para mostrar y gestionar mapas.
